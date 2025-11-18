@@ -1,9 +1,13 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, plasma-manager, ... }:
     let
       forAllSystems =
         function:
@@ -17,6 +21,7 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             bun
+            plasma-manager.packages.${pkgs.system}.default
           ];
         };
       });
