@@ -1,15 +1,5 @@
-import * as Snapshots from "./utils/snapshots"
-import * as JsonDiff from "json-diff-ts"
+import SnapshotsWatcher from "./snapshots-watcher";
 
-const SNAPSHOT_INTERVAL_MS = 1000;
-let lastSnapshot = await Snapshots.getSnapshot();
-
-setInterval(async () => {
-  const snapshot = await Snapshots.getSnapshot();
-
-  const patches = JsonDiff.diff(lastSnapshot, snapshot);
-  if (patches.length > 0) {
-    console.log("Changed!", patches);
-    lastSnapshot = snapshot;
-  }
-}, SNAPSHOT_INTERVAL_MS);
+const watcher = new SnapshotsWatcher();
+await watcher.init();
+watcher.start(1000, { onChange: (patches) => console.log(JSON.stringify(patches, null, 2)) })

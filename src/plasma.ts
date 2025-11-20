@@ -1,6 +1,6 @@
 const SNAPSHOTS_LOCATION = "/tmp/plasma-manager-snapshots";
 
-export async function getSnapshot() {
+export async function takeSnapshot() {
   const currentTime = new Date().toISOString();
 
   const filePath = `${SNAPSHOTS_LOCATION}/${currentTime}.nix`
