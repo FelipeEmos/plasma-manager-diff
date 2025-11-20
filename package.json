@@ -1,12 +1,15 @@
 {
   "name": "plasma-manager-diff",
   "module": "index.ts",
-  "type": "module",
-  "private": true,
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "json-diff-ts": "^4.8.2"
   }
 }
