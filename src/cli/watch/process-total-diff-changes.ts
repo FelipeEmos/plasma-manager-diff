@@ -45,4 +45,9 @@ export async function processTotalDiffChanges(options: CliOptions.Options, total
   await Bun.write(filePath, nixOutput);
 
   console.log(`✅ Configuration written to ${filePath}`);
+
+  if (!options.open) {
+    return;
+  }
+  Bun.$`xdg-open ${filePath}`;
 }
