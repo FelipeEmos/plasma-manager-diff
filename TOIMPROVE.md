@@ -1,0 +1,2 @@
+- Check if `file` is a nix file simple enough to be mapped to a JSON before starting watcher
+- Add VIDEO demoing the tool in README.md
