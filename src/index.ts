@@ -1,6 +1,19 @@
-import SnapshotsWatcher from "./snapshots-watcher";
+#!/usr/bin/env bun
 
-const watcher = new SnapshotsWatcher();
-await watcher.init();
-// watcher.start(1000, { onChange: (patches) => console.log(JSON.stringify(patches, null, 2)) })
-watcher.start(1000, { onChange: (patches) => console.log(patches) })
+import { Command } from 'commander';
+import { watchCommand } from './cli/watch/index.js';
+
+const program = new Command();
+
+program
+  .name('plasma-diff')
+  .description('plasma-manager that reviews the state every interval and accumulates them')
+  .version('0.0.1');
+
+program.addCommand(watchCommand);
+
+program.parse();
+
+if (process.argv.length <= 2) {
+  program.help();
+}

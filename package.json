@@ -2,8 +2,7 @@
   "name": "plasma-manager-diff",
   "module": "index.ts",
   "scripts": {
-    "dev": "bun ./src/index.ts",
-    "cli": "bun ./src/cli.ts"
+    "dev": "bun ./src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
