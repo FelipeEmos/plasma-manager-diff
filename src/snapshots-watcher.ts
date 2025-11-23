@@ -24,7 +24,6 @@ class SnapshotsWatcher {
     }
 
     this.lastSnapshot = this.firstSnapshot;
-
     this.watcherIntervalId = setInterval(async () => {
       const newSnapshot = await Plasma.takeSnapshot("current_snapshot")
 
