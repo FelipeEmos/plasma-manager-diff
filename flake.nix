@@ -47,7 +47,7 @@
         in
         {
           default = pkgs.callPackage (
-            { bun2nix, ... }:
+            { bun2nix, makeWrapper, ... }:
             bun2nix.mkDerivation {
               pname = "plasma-manager-diff";
               version = "0.0.1";
@@ -58,6 +58,10 @@
               };
 
               module = "src/index.ts";
+
+              nativeBuildInputs = [
+                makeWrapper
+              ];
 
               buildInputs = [
                 plasma-manager.packages.${system}.default
@@ -74,6 +78,12 @@
               installPhase = ''
                 mkdir -p $out/bin
                 cp plasma-manager-diff $out/bin/
+                wrapProgram $out/bin/plasma-manager-diff \
+                  --prefix PATH : ${
+                    pkgs.lib.makeBinPath [
+                      plasma-manager.packages.${system}.default
+                    ]
+                  }
               '';
 
               meta = with pkgs.lib; {
