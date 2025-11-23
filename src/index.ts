@@ -6,7 +6,7 @@ import { watchCommand } from './cli/watch/index.js';
 const program = new Command();
 
 program
-  .name('plasma-diff')
+  .name('plasma-manager-diff')
   .description('plasma-manager that reviews the state every interval and accumulates them')
   .version('0.0.1');
 
