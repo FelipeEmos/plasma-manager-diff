@@ -9,8 +9,58 @@ You can think of it like "recording changes" in your plasma settings and conveni
 
 If the `file` you chose to output the changes is already a ".nix" configuration file, than keep it simple ( something translatable to JSON ) cus the tool will APPLY the changes in your config for convenience!
 
+### Installation - NIXOS
 
-### Installation
+#### Without Home Manager
+
+Add `plasma-manager-diff` to your flake inputs:
+
+```nix
+inputs = {
+  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  plasma-manager-diff = {
+    url = "github:FelipeEmos/plasma-manager-diff";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+};
+```
+
+Then add it to your `environment.systemPackages` in your NixOS configuration:
+
+```nix
+environment.systemPackages = [
+  inputs.plasma-manager-diff.packages.${pkgs.system}.default
+];
+```
+
+#### With Home Manager
+
+Add `plasma-manager-diff` to your flake inputs:
+
+```nix
+inputs = {
+  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  home-manager = {
+    url = "github:nix-community/home-manager";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  plasma-manager-diff = {
+    url = "github:FelipeEmos/plasma-manager-diff";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+};
+```
+
+Then add the package to your home-manager configuration:
+
+```nix
+home.packages = [
+  inputs.plasma-manager-diff.packages.${pkgs.system}.default
+];
+```
+
+
+### Build
 
 ```bash
 nix install
