@@ -25,12 +25,17 @@ class SnapshotsWatcher {
 
     this.lastSnapshot = this.firstSnapshot;
     this.watcherIntervalId = setInterval(async () => {
-      const newSnapshot = await Plasma.takeSnapshot("current_snapshot")
+      try {
+        const newSnapshot = await Plasma.takeSnapshot("current_snapshot")
 
-      const patches = JsonDiff.diff(this.lastSnapshot, newSnapshot)
-      if (patches.length > 0) {
-        this.lastSnapshot = newSnapshot
-        opts?.onChange?.(patches);
+        const patches = JsonDiff.diff(this.lastSnapshot, newSnapshot)
+        if (patches.length > 0) {
+          this.lastSnapshot = newSnapshot
+          opts?.onChange?.(patches);
+        }
+      }
+      catch (_e) {
+        // DO NOTHING
       }
     }, intervalMs)
   }
