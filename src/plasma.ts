@@ -1,10 +1,10 @@
-const SNAPSHOTS_LOCATION = "/tmp/plasma-manager-snapshots";
+import { TMP_LOCATION } from "./constants";
 
 export async function takeSnapshot(name?: string) {
   const currentTime = new Date().toISOString();
 
-  const filePath = `${SNAPSHOTS_LOCATION}/${name || currentTime}.nix`
-  await Bun.$`mkdir -p ${SNAPSHOTS_LOCATION}`
+  const filePath = `${TMP_LOCATION}/${name || currentTime}.nix`
+  await Bun.$`mkdir -p ${TMP_LOCATION}`
 
   await Bun.$`rc2nix > ${filePath}`
   return await Bun.$`nix eval --json --file ${filePath}`.json();
